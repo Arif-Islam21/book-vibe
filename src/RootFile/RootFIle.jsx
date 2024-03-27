@@ -4,7 +4,7 @@ import Navbar from "../Navbrar/Navbar";
 const RootFIle = () => {
   return (
     <div>
-      <div className="h-16 ">
+      <div className="h-20">
         <Navbar></Navbar>
       </div>
       <Outlet></Outlet>

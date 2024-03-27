@@ -1,12 +1,18 @@
+import { NavLink } from "react-router-dom";
+
 const Navbar = () => {
   const Routes = (
     <>
-      <li>
-        <a>Item 1</a>
-      </li>
-      <li>
-        <a>Item 3</a>
-      </li>
+      <NavLink to={"/"}>
+        <button className="btn mx-2">Home</button>
+      </NavLink>
+      <NavLink to={"/listedBooks"}>
+        {" "}
+        <button className="btn mx-2">Listed Books</button>
+      </NavLink>
+      <NavLink to={"/pagesToRead"}>
+        <button className="btn mx-2">Pages To Read</button>
+      </NavLink>
     </>
   );
 
