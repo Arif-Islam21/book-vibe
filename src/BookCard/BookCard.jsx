@@ -1,11 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const BookCard = ({ book }) => {
   const { bookId, image, author, bookName, tags, category, rating } = book;
-  console.log(book);
   return (
-    <NavLink to={`/bookDetails/${bookId}`}>
+    <Link to={`/bookDetails/${bookId}`}>
       <div className="card bg-base-100 shadow-xl">
         <div className="card h-[70vh] bg-base-100 shadow-xl">
           <figure className="bg-gray-200 shadow-2xl py-4">
@@ -34,7 +33,7 @@ const BookCard = ({ book }) => {
           </div>
         </div>
       </div>
-    </NavLink>
+    </Link>
   );
 };
 BookCard.propTypes = {
