@@ -6,7 +6,6 @@ const BookDetails = () => {
   const books = useLoaderData();
   const BookId = useParams();
   const { id } = BookId;
-  console.log(id);
   const bookDetails = books?.find((book) => book.bookId === parseInt(id));
   const {
     bookName,
@@ -21,12 +20,12 @@ const BookDetails = () => {
   } = bookDetails;
   const handleWishlistAdd = () => {
     const savedToWishlist =
-      JSON.parse(localStorage.getItem("wishlistInfo")) || [];
+      JSON.parse(localStorage.getItem("wishlistBook")) || [];
     const isWishlistExist = savedToWishlist.find(
       (item) => item.bookId == bookDetails.bookId
     );
     const savedToReadInfo =
-      JSON.parse(localStorage.getItem("bookReadInfo")) || [];
+      JSON.parse(localStorage.getItem("readingBook")) || [];
     const isExist = savedToReadInfo.find(
       (item) => item.bookId == bookDetails.bookId
     );
@@ -37,18 +36,18 @@ const BookDetails = () => {
     } else {
       savedToReadInfo.push(bookDetails);
       const setWishlist = JSON.stringify(savedToReadInfo);
-      localStorage.setItem("wishlistInfo", setWishlist);
+      localStorage.setItem("wishlistBook", setWishlist);
     }
   };
   const handleSaveData = () => {
-    const savedData = JSON.parse(localStorage.getItem("bookReadInfo")) || [];
+    const savedData = JSON.parse(localStorage.getItem("readingBook")) || [];
     const isExist = savedData.find((item) => item.bookId == bookDetails.bookId);
     if (isExist) {
       toast("You Have done reading this book");
     } else {
       savedData.push(bookDetails);
       const setBookValue = JSON.stringify(savedData);
-      localStorage.setItem("bookReadInfo", setBookValue);
+      localStorage.setItem("readingBook", setBookValue);
     }
   };
   return (
