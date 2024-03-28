@@ -4,8 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 const BookDetails = () => {
   const books = useLoaderData();
-  const { bookId } = useParams();
-  const BookData = books?.find((book) => book.bookId === parseInt(bookId));
+  const BookId = useParams();
+  const { id } = BookId;
+  console.log(id);
+  const bookDetails = books?.find((book) => book.bookId === parseInt(id));
   const {
     bookName,
     author,
@@ -16,79 +18,72 @@ const BookDetails = () => {
     publisher,
     yearOfPublishing,
     rating,
-  } = books;
-  console.log(books);
-  const handleSaveData = () => {
-    const savedData = JSON.parse(localStorage.getItem("bookReadInfo")) || [];
-    const isExist = savedData.find((item) => item.bookId == BookData.bookId);
-    if (isExist) {
-      toast("You already have this data");
-    } else {
-      savedData.push(BookData);
-      const setBookValue = JSON.stringify(savedData);
-      localStorage.setItem("bookReadInfo", setBookValue);
-    }
-  };
-
-  const handleWishlist = () => {
+  } = bookDetails;
+  const handleWishlistAdd = () => {
     const savedToWishlist =
       JSON.parse(localStorage.getItem("wishlistInfo")) || [];
     const isWishlistExist = savedToWishlist.find(
-      (item) => item.bookId == BookData.bookId
+      (item) => item.bookId == bookDetails.bookId
     );
     const savedToReadInfo =
       JSON.parse(localStorage.getItem("bookReadInfo")) || [];
     const isExist = savedToReadInfo.find(
-      (item) => item.bookId == BookData.bookId
+      (item) => item.bookId == bookDetails.bookId
     );
     if (isExist) {
-      toast("You Had Read this one. Please chose another");
+      toast("Please chose another One. This book been readed");
     } else if (isWishlistExist) {
-      toast("You have this item added to wishlist");
+      toast("This item has added to wishlist previously");
     } else {
-      savedToReadInfo.push(BookData);
+      savedToReadInfo.push(bookDetails);
       const setWishlist = JSON.stringify(savedToReadInfo);
       localStorage.setItem("wishlistInfo", setWishlist);
     }
   };
-
+  const handleSaveData = () => {
+    const savedData = JSON.parse(localStorage.getItem("bookReadInfo")) || [];
+    const isExist = savedData.find((item) => item.bookId == bookDetails.bookId);
+    if (isExist) {
+      toast("You Have done reading this book");
+    } else {
+      savedData.push(bookDetails);
+      const setBookValue = JSON.stringify(savedData);
+      localStorage.setItem("bookReadInfo", setBookValue);
+    }
+  };
   return (
     <div>
-      <section className=" container mx-auto my-12">
-        <div className="hero min-h-[85vh] ">
+      <section className=" container mx-auto">
+        <div className="hero min-h-screen ">
           <div className="hero-content  flex-col lg:flex-row">
             <div className="w-1/2 bg-base-200 py-36 flex min-h-full justify-center items-center">
-              <img src={image} className="max-w-sm rounded-lg shadow-2xl" />
+              <img src={image} className="max-w-sm rounded-lg shadow-xl" />
             </div>
-            <div className="w-1/2 pl-8">
-              <h1 className="text-2xl lg:text-5xl font-bold">{bookName}</h1>
-              <p className="text-md font-medium my-3">By:{author}</p>
+            <div className="w-1/2 pl-6">
+              <h2 className="text-xl lg:text-4xl font-semibold">{bookName}</h2>
+              <h5 className="text-md font-medium my-3">By:{author}</h5>
               <hr />
-              <p className="my-3 font-medium">{category}</p>
+              <h4 className="my-3 font-medium">{category}</h4>
               <hr />
-              <p className="font-medium text-md my-3 text-gray-500">
-                <span className="text-xl text-black font-bold">Review : </span>
+              <h5 className="font-medium text-md my-3 text-gray-500">
+                <span className="text-xl text-black">Review : </span>
                 {review}
-              </p>
-              <p className="flex flex-col lg:flex-row gap-4 items-center my-3">
-                {/* <span className="text-xl font-bold">Tag:</span>
-                <span className="flex gap-3">
-                  
-                </span> */}
-              </p>
+              </h5>
               <hr />
-              <div className="flex flex-col lg:flex-row items-center text-start my-3">
-                <p className="font-semibold w-full lg:w-1/2 text-gray-500">
+              <div className="flex flex-col my-4 lg:flex-row items-center text-start ">
+                <p className="font-semibold  text-gray-400 w-full lg:w-1/2">
                   Number Of Pages:
                 </p>
                 <p className="font-semibold w-1/2 text-black">{totalPages}</p>
               </div>
-              <div className="flex flex-col lg:flex-row items-center my-3">
-                <p className="font-semibold w-1/2 text-gray-500">Publisher:</p>
+              <div className="flex flex-col my-4 lg:flex-row items-center text-start ">
+                <p className="font-semibold  text-gray-400 w-full lg:w-1/2">
+                  Publisher:
+                </p>
                 <p className="font-semibold w-1/2 text-black">{publisher}</p>
               </div>
-              <div className="flex flex-col lg:flex-row items-center  my-3">
-                <p className="font-semibold w-1/2 text-gray-500">
+              <div className="flex flex-col my-4 lg:flex-row items-center text-start ">
+                <p className="font-semibold  text-gray-400 w-full lg:w-1/2">
                   Year Of Publication
                 </p>
                 <p className="font-semibold w-1/2 text-black">
@@ -96,8 +91,8 @@ const BookDetails = () => {
                 </p>
               </div>
               <div className="flex items-center my-3">
-                <p className="font-semibold w-1/2 text-gray-500">Rating</p>
-                <p className="font-semibold w-1/2 text-black">{rating}</p>
+                <p className="text-gray-400 font-semibold w-1/2 ">Rating</p>
+                <p className=" text-black font-semibold w-1/2">{rating}</p>
               </div>
 
               <div className="my-4 space-y-4 lg:space-y-0 justify-center flex items-center flex-col lg:flex-row">
@@ -109,7 +104,7 @@ const BookDetails = () => {
                 </button>
 
                 <button
-                  onClick={handleWishlist}
+                  onClick={handleWishlistAdd}
                   className="btn btn-outline font-bold btn-info"
                 >
                   WishList
