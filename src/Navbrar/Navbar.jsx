@@ -7,7 +7,6 @@ const Navbar = () => {
         <button className="btn mx-2">Home</button>
       </NavLink>
       <NavLink to={"/listedBooks"}>
-        {" "}
         <button className="btn mx-2">Listed Books</button>
       </NavLink>
       <NavLink to={"/pagesToRead"}>

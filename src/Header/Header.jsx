@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Header = () => {
   return (
     <div className="container mx-auto">
@@ -14,7 +16,9 @@ const Header = () => {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <button className="btn btn-primary">Get Started</button>
+            <NavLink to={"/listedBooks"}>
+              <button className="btn mx-2">Listed Books</button>
+            </NavLink>
           </div>
         </div>
       </div>
